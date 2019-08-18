@@ -14,7 +14,7 @@ public class RegApi {
             // change your base URL
             if (retrofit==null) {
                 retrofit = new Retrofit.Builder()
-                        .baseUrl(String.valueOf(R.string.base_url))
+                        .baseUrl("http://interviews.busaracenterlab.org")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
             }
