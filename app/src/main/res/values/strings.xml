@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SneakerDroid</string>
     <string name="action_settings">Settings</string>
+    <string name="project_code">DROID7</string>
+    <string name="base_url">http://interviews.busaracenterlab.org/</string>
+    <string name="user_reg_url">http://interviews.busaracenterlab.org/api/v1/mobile/participants/</string>
 </resources>

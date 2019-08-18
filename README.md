@@ -3,8 +3,9 @@ An android app to register a participant into the system and collect phone data 
 
 ## Tasks include:
 1. User registration
-* Allow user to register by providing below details. The endpoint should return an
-access token which should be used for all successive API calls.
+* Allow user to register by providing the details listed below. The endpoint should return an
+access token which should be used for all successive API calls. i.e. Names (first and last name), The phone number in international format, Project Code (see app details) , FCM key. Generate this from firebase, Device details. This is a dictionary with device details such as device model,
+device type.
 
 2. Collect data on Software Information
 * Software Information refers to the apps installed on the phone. Data collection
