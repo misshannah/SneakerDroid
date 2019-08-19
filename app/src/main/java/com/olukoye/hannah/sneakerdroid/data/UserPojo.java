@@ -1,9 +1,18 @@
 package com.olukoye.hannah.sneakerdroid.data;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Generated;
+
+@Generated("org.jsonschema2pojo")
+
+
 public class UserPojo {
+
     /*
 "device_details": {
 "device_model": "phone models",
@@ -13,12 +22,25 @@ public class UserPojo {
 }
   */
 
-        private String first_name;
-        private String last_name;
-        private String phone_number;
-        private String project_code;
-        private String app_version;
-        private String fcm_key;
+    @SerializedName("first_name")
+    @Expose
+    public String first_name;
+    @SerializedName("last_name")
+    @Expose
+    public String last_name;
+    @SerializedName("phone_number")
+    @Expose
+    public String phone_number;
+    @SerializedName("project_code")
+    @Expose
+    public String project_code;
+    @SerializedName("app_version")
+    @Expose
+    public String app_version;
+    @SerializedName("fcm_key")
+    @Expose
+    public String fcm_key;
+
         private Map<String, Object> device_details = new HashMap<String, Object>();
         private Map<String, Object> participant_details = new HashMap<String, Object>();
 
@@ -27,6 +49,51 @@ public class UserPojo {
     }
     public void setFirst_name() {
         this.first_name = first_name;
+    }
+    public String getLast_name() {
+        return last_name;
+    }
+    public void setLast_name() {
+        this.last_name = last_name;
+    }
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public String getProject_code() {
+        return project_code;
+    }
+
+    public void setProject_code(String project_code) {
+        this.project_code = project_code;
+    }
+
+    public String getApp_version() {
+        return app_version;
+    }
+
+    public void setApp_version(String app_version) {
+        this.app_version = app_version;
+    }
+
+    public String getFcm_key() {
+        return fcm_key;
+    }
+
+    public void setFcm_key(String fcm_key) {
+        this.fcm_key = fcm_key;
+    }
+
+    public Map<String, Object> getDevice_details() {
+        return device_details;
+    }
+
+    public void setDevice_details(Map<String, Object> device_details) {
+        this.device_details = device_details;
     }
 
     public Map<String, Object> getParticipant_details() {

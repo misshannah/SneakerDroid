@@ -1,26 +1,37 @@
 package com.olukoye.hannah.sneakerdroid.data;
 
-import com.olukoye.hannah.sneakerdroid.R;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
+
 public class RegApi {
 
-        private static Retrofit retrofit = null;
-        public static UserRegInterface getUser() {
+    private static HttpLoggingInterceptor logging;
+    private static OkHttpClient.Builder httpClient;
 
-            // change your base URL
+        private static Retrofit retrofit;
+        public static Retrofit getUser() {
+
+
             if (retrofit==null) {
+                logging = new HttpLoggingInterceptor();
+                logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+                httpClient = new OkHttpClient.Builder();
+
+
+                httpClient.addInterceptor(logging);
                 retrofit = new Retrofit.Builder()
                         .baseUrl("http://interviews.busaracenterlab.org")
                         .addConverterFactory(GsonConverterFactory.create())
+                        .client(httpClient.build())
                         .build();
             }
-            //Creating object for our interface
-            UserRegInterface api = retrofit.create(UserRegInterface.class);
-            return api; // return the APIInterface object
+            //UserRegInterface api = retrofit.create(UserRegInterface.class);
+            return retrofit;
         }
 
 }

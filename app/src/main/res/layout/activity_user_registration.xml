@@ -42,7 +42,19 @@
             android:textColor="#000"
             android:textColorHint="#000" />
 
-
+            <EditText
+                android:id="@+id/p_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:digits="0123456789+"
+                android:paddingBottom="15dp"
+                android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textColorHint="#000" />
 
             <Button
                 android:id="@+id/regBtn"

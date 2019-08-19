@@ -1,16 +1,17 @@
 package com.olukoye.hannah.sneakerdroid.data;
 
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import java.util.Map;
+
+import retrofit2.http.Body;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.Call;
 
 public interface UserRegInterface {
 
-
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
     @POST("/api/v1/mobile/participants/")
-        Call<UserPojo> registration(@Field("first_name") String first_name,
-                                    @Field("last_name") String last_name );
+    Call<UserPojo> registration(@Body Map<String, Object> storedata);
+
 }
 
