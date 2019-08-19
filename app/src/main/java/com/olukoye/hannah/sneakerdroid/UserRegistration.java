@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class UserRegistration extends AppCompatActivity {
     ProgressDialog progressDialog;
     EditText f_name, l_name, p_number;
     Button regBtn;
-    String phone_number,app_v;
+    String app_v, device_model,device_type,hardware,manufacturer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +40,8 @@ public class UserRegistration extends AppCompatActivity {
         f_name = findViewById(R.id.f_name);
         l_name = findViewById(R.id.l_name);
         p_number = findViewById(R.id.p_number);
-        phone_number = PhoneNumberUtils.formatNumber(p_number.getText().toString());
         getAppVersion();
+        getDeviceData();
 
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +65,16 @@ public class UserRegistration extends AppCompatActivity {
         }
     }
 
+        private void getDeviceData() {
 
-    private void registerUser() {
+            device_model = Build.MODEL;
+            device_type = Build.TYPE;
+            hardware = Build.HARDWARE;
+            manufacturer = Build.MANUFACTURER;
+
+        }
+
+        private void registerUser() {
         progressDialog = new ProgressDialog(UserRegistration.this);
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
@@ -73,11 +82,18 @@ public class UserRegistration extends AppCompatActivity {
 
         UserRegInterface userRegInterface = RegApi.getUser().create(UserRegInterface.class);
 
+
+        Map<String, Object> deviceData = new UserPojo().getDevice_details();
+        deviceData.put("device_model", device_model);
+        deviceData.put("device_type", device_type);
+        deviceData.put("hardware", hardware);
+        deviceData.put("manufacturer", manufacturer);
+
         Map<String, Object> data = new HashMap<>();
         data.put("first_name", f_name.getText().toString());
         data.put("last_name", f_name.getText().toString());
-        data.put("phone_number", phone_number);
-        data.put("device_details", "");
+        data.put("phone_number", p_number.getText().toString());
+        data.put("device_details", deviceData);
         data.put("app_version", app_v);
         data.put("project_code", getResources().getString(R.string.project_code));
 
@@ -89,10 +105,16 @@ public class UserRegistration extends AppCompatActivity {
             public void onResponse(Call<UserPojo> call,
                                    Response<UserPojo> response) {
                 progressDialog.dismiss();
-                String responseBody = String.valueOf(response.body());
 
-                Toast.makeText(UserRegistration.this, "Data uploaded!" + responseBody, Toast.LENGTH_SHORT).show();
+                if(response.code() == 403) {
+                    Toast.makeText(getApplicationContext(), "Unable to Create User! Try Again", Toast.LENGTH_LONG).show();
+                }
 
+                if (response.body()!= null) {
+                    if (response.body().getMessage().equals("message")) {
+                        Toast.makeText(UserRegistration.this, "User Registered!", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
 
             @Override
